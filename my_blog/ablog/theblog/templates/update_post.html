@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Article{% endblock %}
+
+{% block home %} 
+{% if user.is_authenticated %}
+    {%if user.id == post.author.id or user.id == 1 %}
+    <div class="container">
+        <h1>Update Post</h1>
+
+        <br/><br/>
+        <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success me">Add Article</button>
+        </div>
+        {% else %}
+        <h3>You are not allowed to do that</h3>
+        {% endif %}
+
+        {% else %}
+        <h3>You are not allowed to do that</h3>
+        {% endif %}
+</div>
+
+{% endblock %}

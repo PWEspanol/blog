@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title%}Create a new Article{% endblock%}
+
+{% block home %} 
+{% if user.is_authenticated %}
+    <div class="container">
+        <div class="text-center"><h1>Add Article...</h1></div>
+
+        <br/><br/>
+        <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-success me">Add Article</button>
+            </div>
+
+            <script>
+                let name = "{{ user.id }}";
+                document.getElementById("elder").value = name;
+
+
+            </script>
+            {% else %}
+            <h3>You are not allowed to do that</h3>
+            {% endif %}
+    </div>
+
+{% endblock %}

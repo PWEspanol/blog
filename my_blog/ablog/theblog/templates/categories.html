@@ -1,0 +1,66 @@
+{% extends 'base.html' %} 
+
+{% block home%}
+
+
+{% if category_articles%}
+<div class="container">
+<h1>Category: {{ cats }}</h1>
+
+{% for post in category_articles%}
+<div class="article-item">
+    <a
+      href="{% url 'article-detail' post.pk %}"
+      class="d-flex border border-dark mb-4 text-decoration-none text-black article-list-item article-padding"
+    >
+      <img
+        src="https://www.psy.pl/wp-content/uploads/2010/05/shutterstock_206706229-e1486561003481-864x575.jpg"
+        class="cover"
+      />
+      <div class="p-2">
+        <div class="d-flex align-items-center">
+
+          <span class="article-title">{{post.title | truncatewords:8}}</span>
+
+        <span class="article-category">{{ post.category }}</span>
+        <!-- <span>{{post.tags}}</span> -->
+        </div>
+        <div class="article-text">{{ post.content|safe|truncatewords:80 }}</div>
+        </p>
+      </div>
+    </a>
+
+    {% if user.is_authenticated %}
+    {% if user.id == post.author.id or user.id == 1 %}
+  <div class="article-actions">
+    <button type="button" class="btn btn-primary btn-padding">
+      <a
+        class="text-white text-decoration-none"
+        href="{% url 'update-article' post.pk%}"
+        >Edit</a
+      >
+    </button>
+
+    <button type="button" class="btn btn-warning btn-sm btn-padding">
+      <a
+        class="text-white text-decoration-none"
+        href="{% url 'delete-article' post.pk%}"
+        >Delete</a
+      >
+    </button>
+  </div>
+  {% endif %}
+  {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+{% else %}
+
+<br/>
+<h1 class='text-center'>Sorry !!! This page does not exist.  :( </h1>
+
+{% endif %}
+
+{% endblock %}
+
