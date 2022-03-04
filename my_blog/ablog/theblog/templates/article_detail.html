@@ -10,7 +10,7 @@
       <div>
         <span>By: {{ post.author.first_name }} {{ post.author.last_name }}</span>
         {% if user.is_authenticated %}
-        {% if user.id == post.author.id %}
+        {% if user.id == post.author.id or user.id == 1%}
 
             <small><a href="{% url 'update-article' post.pk %}">(Edit)</a></small>
             <small><a href="{% url 'delete-article' post.pk %}">(Delete)</a></small>
